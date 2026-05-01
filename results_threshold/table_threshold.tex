@@ -1,0 +1,32 @@
+\begin{table}[h]
+\centering
+\caption{Effect of XDP rate limiting threshold on service
+availability and latency (50\,kpps, mean$\pm$std, 3 runs,
+$N$=120/run; Thr = SYN/IP per 2\,s window)}
+\label{tab:threshold}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Config} & \textbf{Thr} & \textbf{Success} & \textbf{Lat.\ (s)} & \textbf{CPU (\%)} \\
+\hline
+\multicolumn{5}{|l|}{\textit{Single}} \\
+\hline
+XDP-only & 50 & $1.000{\pm}0.000$ & $0.0158{\pm}0.0002$ & $44.0{\pm}0.1$ \\
+XDP-only & 100 & $1.000{\pm}0.000$ & $0.0159{\pm}0.0005$ & $43.6{\pm}0.5$ \\
+XDP-only & 200 & $1.000{\pm}0.000$ & $0.0160{\pm}0.0002$ & $43.8{\pm}0.1$ \\
+XDP-only & 500 & $1.000{\pm}0.000$ & $0.0162{\pm}0.0001$ & $44.3{\pm}0.3$ \\
+\hline
+\multicolumn{5}{|l|}{\textit{Spoofed}} \\
+\hline
+XDP-only & 50 & $0.967{\pm}0.017$ & $0.1444{\pm}0.0604$ & $61.5{\pm}0.3$ \\
+XDP-only & 100 & $0.972{\pm}0.009$ & $0.1721{\pm}0.0415$ & $61.9{\pm}0.2$ \\
+XDP-only & 200 & $0.972{\pm}0.013$ & $0.1770{\pm}0.0348$ & $61.2{\pm}0.5$ \\
+XDP-only & 500 & $0.978{\pm}0.009$ & $0.1853{\pm}0.0515$ & $61.9{\pm}0.3$ \\
+XDP+SYNPROXY & 50 & $0.961{\pm}0.021$ & $0.1259{\pm}0.0901$ & $62.7{\pm}0.1$ \\
+XDP+SYNPROXY & 100 & $0.953{\pm}0.005$ & $0.0771{\pm}0.0292$ & $62.6{\pm}0.1$ \\
+XDP+SYNPROXY & 200 & $0.950{\pm}0.008$ & $0.0681{\pm}0.0381$ & $62.8{\pm}0.3$ \\
+XDP+SYNPROXY & 500 & $0.956{\pm}0.010$ & $0.0799{\pm}0.0543$ & $62.3{\pm}0.5$ \\
+\hline
+\end{tabular}
+\end{table}
