@@ -1,0 +1,871 @@
+================================================================
+ run_all_extended.sh — Matrice esperimenti estesa
+================================================================
+ Configurazioni : none syn-cookies iptables-hl iptables nftables xdp combined
+ Scenari        : single distributed spoofed
+ Ripetizioni    : 3
+ Run totali     : 63
+ Rate           : 50000 pps
+ Durata/run     : 60s
+ Tempo stimato  : ~84 minuti
+ Output dir     : /home/apirodd/results_extended
+================================================================
+
+[OK] Prerequisiti verificati.
+
+
+>>> [1/63] fw=none scenario=single atk=1 rep=1
+    21:47:38
+HTTP OK | fw=none scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0257,0.0216,120,65.3
+    -> 1.000,0.0257,0.0216,120,65.3
+    -> Salvato: /home/apirodd/results_extended/single_none_a1_r1.csv
+
+>>> [2/63] fw=none scenario=single atk=1 rep=2
+    21:48:59
+HTTP OK | fw=none scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0302,0.0251,120,65.2
+    -> 1.000,0.0302,0.0251,120,65.2
+    -> Salvato: /home/apirodd/results_extended/single_none_a1_r2.csv
+
+>>> [3/63] fw=none scenario=single atk=1 rep=3
+    21:50:21
+HTTP OK | fw=none scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0267,0.0232,120,62.5
+    -> 1.000,0.0267,0.0232,120,62.5
+    -> Salvato: /home/apirodd/results_extended/single_none_a1_r3.csv
+
+>>> [4/63] fw=none scenario=distributed atk=5 rep=1
+    21:51:42
+HTTP OK | fw=none scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.600
+  ... N=40 succ=0.800
+  ... N=60 succ=0.867
+  ... N=80 succ=0.900
+  ... N=100 succ=0.920
+  ... N=120 succ=0.933
+RESULT: 0.933,0.1916,0.6489,120,96.9
+    -> 0.933,0.1916,0.6489,120,96.9
+    -> Salvato: /home/apirodd/results_extended/distributed_none_a5_r1.csv
+
+>>> [5/63] fw=none scenario=distributed atk=5 rep=2
+    21:53:59
+HTTP OK | fw=none scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.650
+  ... N=40 succ=0.825
+  ... N=60 succ=0.883
+  ... N=80 succ=0.912
+  ... N=100 succ=0.930
+  ... N=120 succ=0.942
+RESULT: 0.942,0.2415,0.6983,120,96.5
+    -> 0.942,0.2415,0.6983,120,96.5
+    -> Salvato: /home/apirodd/results_extended/distributed_none_a5_r2.csv
+
+>>> [6/63] fw=none scenario=distributed atk=5 rep=3
+    21:56:16
+HTTP OK | fw=none scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.2685,0.7750,120,97.8
+    -> 0.950,0.2685,0.7750,120,97.8
+    -> Salvato: /home/apirodd/results_extended/distributed_none_a5_r3.csv
+
+>>> [7/63] fw=none scenario=spoofed atk=5 rep=1
+    21:58:33
+HTTP OK | fw=none scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.1170,0.5578,120,58.4
+    -> 0.958,0.1170,0.5578,120,58.4
+    -> Salvato: /home/apirodd/results_extended/spoofed_none_a5_r1.csv
+
+>>> [8/63] fw=none scenario=spoofed atk=5 rep=2
+    22:00:26
+HTTP OK | fw=none scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.0975,0.4853,120,57.8
+    -> 0.958,0.0975,0.4853,120,57.8
+    -> Salvato: /home/apirodd/results_extended/spoofed_none_a5_r2.csv
+
+>>> [9/63] fw=none scenario=spoofed atk=5 rep=3
+    22:02:18
+HTTP OK | fw=none scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.900
+  ... N=40 succ=0.950
+  ... N=60 succ=0.967
+  ... N=80 succ=0.975
+  ... N=100 succ=0.980
+  ... N=120 succ=0.983
+RESULT: 0.983,0.2110,0.7837,120,58.1
+    -> 0.983,0.2110,0.7837,120,58.1
+    -> Salvato: /home/apirodd/results_extended/spoofed_none_a5_r3.csv
+
+>>> [10/63] fw=syn-cookies scenario=single atk=1 rep=1
+    22:04:10
+HTTP OK | fw=syn-cookies scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0223,0.0176,120,64.8
+    -> 1.000,0.0223,0.0176,120,64.8
+    -> Salvato: /home/apirodd/results_extended/single_syn-cookies_a1_r1.csv
+
+>>> [11/63] fw=syn-cookies scenario=single atk=1 rep=2
+    22:05:31
+HTTP OK | fw=syn-cookies scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0325,0.0262,120,66.7
+    -> 1.000,0.0325,0.0262,120,66.7
+    -> Salvato: /home/apirodd/results_extended/single_syn-cookies_a1_r2.csv
+
+>>> [12/63] fw=syn-cookies scenario=single atk=1 rep=3
+    22:06:53
+HTTP OK | fw=syn-cookies scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0300,0.0251,120,65.4
+    -> 1.000,0.0300,0.0251,120,65.4
+    -> Salvato: /home/apirodd/results_extended/single_syn-cookies_a1_r3.csv
+
+>>> [13/63] fw=syn-cookies scenario=distributed atk=5 rep=1
+    22:08:14
+HTTP OK | fw=syn-cookies scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.825
+  ... N=60 succ=0.883
+  ... N=80 succ=0.912
+  ... N=100 succ=0.930
+  ... N=120 succ=0.942
+RESULT: 0.942,0.2465,0.8189,120,96.6
+    -> 0.942,0.2465,0.8189,120,96.6
+    -> Salvato: /home/apirodd/results_extended/distributed_syn-cookies_a5_r1.csv
+
+>>> [14/63] fw=syn-cookies scenario=distributed atk=5 rep=2
+    22:10:33
+HTTP OK | fw=syn-cookies scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.600
+  ... N=40 succ=0.800
+  ... N=60 succ=0.867
+  ... N=80 succ=0.900
+  ... N=100 succ=0.920
+  ... N=120 succ=0.933
+RESULT: 0.933,0.1820,0.6415,120,97.6
+    -> 0.933,0.1820,0.6415,120,97.6
+    -> Salvato: /home/apirodd/results_extended/distributed_syn-cookies_a5_r2.csv
+
+>>> [15/63] fw=syn-cookies scenario=distributed atk=5 rep=3
+    22:12:51
+HTTP OK | fw=syn-cookies scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.600
+  ... N=40 succ=0.775
+  ... N=60 succ=0.850
+  ... N=80 succ=0.887
+  ... N=100 succ=0.910
+  ... N=120 succ=0.925
+RESULT: 0.925,0.1690,0.6055,120,97.0
+    -> 0.925,0.1690,0.6055,120,97.0
+    -> Salvato: /home/apirodd/results_extended/distributed_syn-cookies_a5_r3.csv
+
+>>> [16/63] fw=syn-cookies scenario=spoofed atk=5 rep=1
+    22:15:07
+HTTP OK | fw=syn-cookies scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.950
+  ... N=40 succ=0.975
+  ... N=60 succ=0.983
+  ... N=80 succ=0.988
+  ... N=100 succ=0.990
+  ... N=120 succ=0.992
+RESULT: 0.992,0.2341,0.8427,120,58.2
+    -> 0.992,0.2341,0.8427,120,58.2
+    -> Salvato: /home/apirodd/results_extended/spoofed_syn-cookies_a5_r1.csv
+
+>>> [17/63] fw=syn-cookies scenario=spoofed atk=5 rep=2
+    22:16:58
+HTTP OK | fw=syn-cookies scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.950
+  ... N=40 succ=0.975
+  ... N=60 succ=0.983
+  ... N=80 succ=0.988
+  ... N=100 succ=0.990
+  ... N=120 succ=0.992
+RESULT: 0.992,0.2436,0.7898,120,58.7
+    -> 0.992,0.2436,0.7898,120,58.7
+    -> Salvato: /home/apirodd/results_extended/spoofed_syn-cookies_a5_r2.csv
+
+>>> [18/63] fw=syn-cookies scenario=spoofed atk=5 rep=3
+    22:18:50
+HTTP OK | fw=syn-cookies scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.850
+  ... N=40 succ=0.925
+  ... N=60 succ=0.950
+  ... N=80 succ=0.963
+  ... N=100 succ=0.970
+  ... N=120 succ=0.975
+RESULT: 0.975,0.1757,0.7172,120,57.9
+    -> 0.975,0.1757,0.7172,120,57.9
+    -> Salvato: /home/apirodd/results_extended/spoofed_syn-cookies_a5_r3.csv
+
+>>> [19/63] fw=iptables-hl scenario=single atk=1 rep=1
+    22:20:42
+HTTP OK | fw=iptables-hl scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0163,0.0158,120,44.3
+    -> 1.000,0.0163,0.0158,120,44.3
+    -> Salvato: /home/apirodd/results_extended/single_iptables-hl_a1_r1.csv
+
+>>> [20/63] fw=iptables-hl scenario=single atk=1 rep=2
+    22:22:02
+HTTP OK | fw=iptables-hl scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0164,0.0153,120,44.7
+    -> 1.000,0.0164,0.0153,120,44.7
+    -> Salvato: /home/apirodd/results_extended/single_iptables-hl_a1_r2.csv
+
+>>> [21/63] fw=iptables-hl scenario=single atk=1 rep=3
+    22:23:22
+HTTP OK | fw=iptables-hl scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0167,0.0157,120,44.4
+    -> 1.000,0.0167,0.0157,120,44.4
+    -> Salvato: /home/apirodd/results_extended/single_iptables-hl_a1_r3.csv
+
+>>> [22/63] fw=iptables-hl scenario=distributed atk=5 rep=1
+    22:24:42
+HTTP OK | fw=iptables-hl scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.1203,0.5767,120,60.2
+    -> 0.958,0.1203,0.5767,120,60.2
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables-hl_a5_r1.csv
+
+>>> [23/63] fw=iptables-hl scenario=distributed atk=5 rep=2
+    22:26:35
+HTTP OK | fw=iptables-hl scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.0812,0.3873,120,60.1
+    -> 0.958,0.0812,0.3873,120,60.1
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables-hl_a5_r2.csv
+
+>>> [24/63] fw=iptables-hl scenario=distributed atk=5 rep=3
+    22:28:29
+HTTP OK | fw=iptables-hl scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.900
+  ... N=60 succ=0.933
+  ... N=80 succ=0.950
+  ... N=100 succ=0.960
+  ... N=120 succ=0.967
+RESULT: 0.967,0.1541,0.6542,120,60.0
+    -> 0.967,0.1541,0.6542,120,60.0
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables-hl_a5_r3.csv
+
+>>> [25/63] fw=iptables-hl scenario=spoofed atk=5 rep=1
+    22:30:22
+HTTP OK | fw=iptables-hl scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.850
+  ... N=40 succ=0.925
+  ... N=60 succ=0.950
+  ... N=80 succ=0.963
+  ... N=100 succ=0.970
+  ... N=120 succ=0.975
+RESULT: 0.975,0.1618,0.5953,120,58.6
+    -> 0.975,0.1618,0.5953,120,58.6
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables-hl_a5_r1.csv
+
+>>> [26/63] fw=iptables-hl scenario=spoofed atk=5 rep=2
+    22:32:13
+HTTP OK | fw=iptables-hl scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.850
+  ... N=40 succ=0.925
+  ... N=60 succ=0.950
+  ... N=80 succ=0.963
+  ... N=100 succ=0.970
+  ... N=120 succ=0.975
+RESULT: 0.975,0.1673,0.7357,120,57.4
+    -> 0.975,0.1673,0.7357,120,57.4
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables-hl_a5_r2.csv
+
+>>> [27/63] fw=iptables-hl scenario=spoofed atk=5 rep=3
+    22:34:05
+HTTP OK | fw=iptables-hl scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.850
+  ... N=40 succ=0.925
+  ... N=60 succ=0.950
+  ... N=80 succ=0.963
+  ... N=100 succ=0.970
+  ... N=120 succ=0.975
+RESULT: 0.975,0.1691,0.7262,120,58.1
+    -> 0.975,0.1691,0.7262,120,58.1
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables-hl_a5_r3.csv
+
+>>> [28/63] fw=iptables scenario=single atk=1 rep=1
+    22:35:58
+HTTP OK | fw=iptables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0493,0.0391,120,70.2
+    -> 1.000,0.0493,0.0391,120,70.2
+    -> Salvato: /home/apirodd/results_extended/single_iptables_a1_r1.csv
+
+>>> [29/63] fw=iptables scenario=single atk=1 rep=2
+    22:37:22
+HTTP OK | fw=iptables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0489,0.0386,120,70.1
+    -> 1.000,0.0489,0.0386,120,70.1
+    -> Salvato: /home/apirodd/results_extended/single_iptables_a1_r2.csv
+
+>>> [30/63] fw=iptables scenario=single atk=1 rep=3
+    22:38:46
+HTTP OK | fw=iptables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0468,0.0378,120,69.0
+    -> 1.000,0.0468,0.0378,120,69.0
+    -> Salvato: /home/apirodd/results_extended/single_iptables_a1_r3.csv
+
+>>> [31/63] fw=iptables scenario=distributed atk=5 rep=1
+    22:40:09
+HTTP OK | fw=iptables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.2398,0.6746,120,95.2
+    -> 0.950,0.2398,0.6746,120,95.2
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables_a5_r1.csv
+
+>>> [32/63] fw=iptables scenario=distributed atk=5 rep=2
+    22:42:24
+HTTP OK | fw=iptables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.825
+  ... N=60 succ=0.883
+  ... N=80 succ=0.912
+  ... N=100 succ=0.930
+  ... N=120 succ=0.942
+RESULT: 0.942,0.2087,0.5877,120,95.0
+    -> 0.942,0.2087,0.5877,120,95.0
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables_a5_r2.csv
+
+>>> [33/63] fw=iptables scenario=distributed atk=5 rep=3
+    22:44:35
+HTTP OK | fw=iptables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.550
+  ... N=40 succ=0.775
+  ... N=60 succ=0.850
+  ... N=80 succ=0.887
+  ... N=100 succ=0.910
+  ... N=120 succ=0.925
+RESULT: 0.925,0.1884,0.6648,120,95.2
+    -> 0.925,0.1884,0.6648,120,95.2
+    -> Salvato: /home/apirodd/results_extended/distributed_iptables_a5_r3.csv
+
+>>> [34/63] fw=iptables scenario=spoofed atk=5 rep=1
+    22:46:52
+HTTP OK | fw=iptables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0597,0.4220,120,59.1
+    -> 0.950,0.0597,0.4220,120,59.1
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables_a5_r1.csv
+
+>>> [35/63] fw=iptables scenario=spoofed atk=5 rep=2
+    22:48:46
+HTTP OK | fw=iptables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0450,0.2781,120,59.7
+    -> 0.950,0.0450,0.2781,120,59.7
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables_a5_r2.csv
+
+>>> [36/63] fw=iptables scenario=spoofed atk=5 rep=3
+    22:50:42
+HTTP OK | fw=iptables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0688,0.3747,120,59.6
+    -> 0.950,0.0688,0.3747,120,59.6
+    -> Salvato: /home/apirodd/results_extended/spoofed_iptables_a5_r3.csv
+
+>>> [37/63] fw=nftables scenario=single atk=1 rep=1
+    22:52:36
+HTTP OK | fw=nftables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0366,0.0276,120,71.9
+    -> 1.000,0.0366,0.0276,120,71.9
+    -> Salvato: /home/apirodd/results_extended/single_nftables_a1_r1.csv
+
+>>> [38/63] fw=nftables scenario=single atk=1 rep=2
+    22:53:59
+HTTP OK | fw=nftables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0349,0.0265,120,70.5
+    -> 1.000,0.0349,0.0265,120,70.5
+    -> Salvato: /home/apirodd/results_extended/single_nftables_a1_r2.csv
+
+>>> [39/63] fw=nftables scenario=single atk=1 rep=3
+    22:55:21
+HTTP OK | fw=nftables scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0356,0.0276,120,70.7
+    -> 1.000,0.0356,0.0276,120,70.7
+    -> Salvato: /home/apirodd/results_extended/single_nftables_a1_r3.csv
+
+>>> [40/63] fw=nftables scenario=distributed atk=5 rep=1
+    22:56:43
+HTTP OK | fw=nftables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.600
+  ... N=40 succ=0.775
+  ... N=60 succ=0.850
+  ... N=80 succ=0.887
+  ... N=100 succ=0.910
+  ... N=120 succ=0.925
+RESULT: 0.925,0.1330,0.5253,120,93.8
+    -> 0.925,0.1330,0.5253,120,93.8
+    -> Salvato: /home/apirodd/results_extended/distributed_nftables_a5_r1.csv
+
+>>> [41/63] fw=nftables scenario=distributed atk=5 rep=2
+    22:58:59
+HTTP OK | fw=nftables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.2391,0.6399,120,94.5
+    -> 0.950,0.2391,0.6399,120,94.5
+    -> Salvato: /home/apirodd/results_extended/distributed_nftables_a5_r2.csv
+
+>>> [42/63] fw=nftables scenario=distributed atk=5 rep=3
+    23:01:11
+HTTP OK | fw=nftables scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.650
+  ... N=40 succ=0.800
+  ... N=60 succ=0.867
+  ... N=80 succ=0.900
+  ... N=100 succ=0.920
+  ... N=120 succ=0.933
+RESULT: 0.933,0.1887,0.7386,120,94.8
+    -> 0.933,0.1887,0.7386,120,94.8
+    -> Salvato: /home/apirodd/results_extended/distributed_nftables_a5_r3.csv
+
+>>> [43/63] fw=nftables scenario=spoofed atk=5 rep=1
+    23:03:27
+HTTP OK | fw=nftables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.900
+  ... N=60 succ=0.933
+  ... N=80 succ=0.950
+  ... N=100 succ=0.960
+  ... N=120 succ=0.967
+RESULT: 0.967,0.1487,0.6270,120,62.1
+    -> 0.967,0.1487,0.6270,120,62.1
+    -> Salvato: /home/apirodd/results_extended/spoofed_nftables_a5_r1.csv
+
+>>> [44/63] fw=nftables scenario=spoofed atk=5 rep=2
+    23:05:23
+HTTP OK | fw=nftables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.900
+  ... N=40 succ=0.950
+  ... N=60 succ=0.967
+  ... N=80 succ=0.975
+  ... N=100 succ=0.980
+  ... N=120 succ=0.983
+RESULT: 0.983,0.2128,0.6313,120,62.4
+    -> 0.983,0.2128,0.6313,120,62.4
+    -> Salvato: /home/apirodd/results_extended/spoofed_nftables_a5_r2.csv
+
+>>> [45/63] fw=nftables scenario=spoofed atk=5 rep=3
+    23:07:16
+HTTP OK | fw=nftables scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.950
+  ... N=40 succ=0.975
+  ... N=60 succ=0.983
+  ... N=80 succ=0.988
+  ... N=100 succ=0.990
+  ... N=120 succ=0.992
+RESULT: 0.992,0.2411,0.7011,120,62.0
+    -> 0.992,0.2411,0.7011,120,62.0
+    -> Salvato: /home/apirodd/results_extended/spoofed_nftables_a5_r3.csv
+
+>>> [46/63] fw=xdp scenario=single atk=1 rep=1
+    23:09:08
+HTTP OK | fw=xdp scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0152,0.0142,120,44.5
+    -> 1.000,0.0152,0.0142,120,44.5
+    -> Salvato: /home/apirodd/results_extended/single_xdp_a1_r1.csv
+
+>>> [47/63] fw=xdp scenario=single atk=1 rep=2
+    23:10:28
+HTTP OK | fw=xdp scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0159,0.0143,120,43.3
+    -> 1.000,0.0159,0.0143,120,43.3
+    -> Salvato: /home/apirodd/results_extended/single_xdp_a1_r2.csv
+
+>>> [48/63] fw=xdp scenario=single atk=1 rep=3
+    23:11:48
+HTTP OK | fw=xdp scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0164,0.0154,120,43.7
+    -> 1.000,0.0164,0.0154,120,43.7
+    -> Salvato: /home/apirodd/results_extended/single_xdp_a1_r3.csv
+
+>>> [49/63] fw=xdp scenario=distributed atk=5 rep=1
+    23:13:08
+HTTP OK | fw=xdp scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.0941,0.5409,120,59.0
+    -> 0.958,0.0941,0.5409,120,59.0
+    -> Salvato: /home/apirodd/results_extended/distributed_xdp_a5_r1.csv
+
+>>> [50/63] fw=xdp scenario=distributed atk=5 rep=2
+    23:15:01
+HTTP OK | fw=xdp scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.750
+  ... N=40 succ=0.875
+  ... N=60 succ=0.917
+  ... N=80 succ=0.938
+  ... N=100 succ=0.950
+  ... N=120 succ=0.958
+RESULT: 0.958,0.1188,0.5736,120,58.5
+    -> 0.958,0.1188,0.5736,120,58.5
+    -> Salvato: /home/apirodd/results_extended/distributed_xdp_a5_r2.csv
+
+>>> [51/63] fw=xdp scenario=distributed atk=5 rep=3
+    23:16:54
+HTTP OK | fw=xdp scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.900
+  ... N=40 succ=0.950
+  ... N=60 succ=0.967
+  ... N=80 succ=0.975
+  ... N=100 succ=0.980
+  ... N=120 succ=0.983
+RESULT: 0.983,0.2108,0.7959,120,58.7
+    -> 0.983,0.2108,0.7959,120,58.7
+    -> Salvato: /home/apirodd/results_extended/distributed_xdp_a5_r3.csv
+
+>>> [52/63] fw=xdp scenario=spoofed atk=5 rep=1
+    23:18:46
+HTTP OK | fw=xdp scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.900
+  ... N=60 succ=0.933
+  ... N=80 succ=0.950
+  ... N=100 succ=0.960
+  ... N=120 succ=0.967
+RESULT: 0.967,0.1470,0.4978,120,61.4
+    -> 0.967,0.1470,0.4978,120,61.4
+    -> Salvato: /home/apirodd/results_extended/spoofed_xdp_a5_r1.csv
+
+>>> [53/63] fw=xdp scenario=spoofed atk=5 rep=2
+    23:20:38
+HTTP OK | fw=xdp scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.850
+  ... N=40 succ=0.925
+  ... N=60 succ=0.950
+  ... N=80 succ=0.963
+  ... N=100 succ=0.970
+  ... N=120 succ=0.975
+RESULT: 0.975,0.1541,0.6187,120,61.6
+    -> 0.975,0.1541,0.6187,120,61.6
+    -> Salvato: /home/apirodd/results_extended/spoofed_xdp_a5_r2.csv
+
+>>> [54/63] fw=xdp scenario=spoofed atk=5 rep=3
+    23:22:32
+HTTP OK | fw=xdp scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.900
+  ... N=40 succ=0.950
+  ... N=60 succ=0.967
+  ... N=80 succ=0.975
+  ... N=100 succ=0.980
+  ... N=120 succ=0.983
+RESULT: 0.983,0.2169,0.7065,120,62.0
+    -> 0.983,0.2169,0.7065,120,62.0
+    -> Salvato: /home/apirodd/results_extended/spoofed_xdp_a5_r3.csv
+
+>>> [55/63] fw=combined scenario=single atk=1 rep=1
+    23:24:24
+HTTP OK | fw=combined scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0211,0.0203,120,43.4
+    -> 1.000,0.0211,0.0203,120,43.4
+    -> Salvato: /home/apirodd/results_extended/single_combined_a1_r1.csv
+
+>>> [56/63] fw=combined scenario=single atk=1 rep=2
+    23:25:45
+HTTP OK | fw=combined scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0215,0.0202,120,43.9
+    -> 1.000,0.0215,0.0202,120,43.9
+    -> Salvato: /home/apirodd/results_extended/single_combined_a1_r2.csv
+
+>>> [57/63] fw=combined scenario=single atk=1 rep=3
+    23:27:06
+HTTP OK | fw=combined scenario=single n_atk=1 rate=50000 N=120
+  ... N=20 succ=1.000
+  ... N=40 succ=1.000
+  ... N=60 succ=1.000
+  ... N=80 succ=1.000
+  ... N=100 succ=1.000
+  ... N=120 succ=1.000
+RESULT: 1.000,0.0218,0.0209,120,43.8
+    -> 1.000,0.0218,0.0209,120,43.8
+    -> Salvato: /home/apirodd/results_extended/single_combined_a1_r3.csv
+
+>>> [58/63] fw=combined scenario=distributed atk=5 rep=1
+    23:28:26
+HTTP OK | fw=combined scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0587,0.2720,120,59.0
+    -> 0.950,0.0587,0.2720,120,59.0
+    -> Salvato: /home/apirodd/results_extended/distributed_combined_a5_r1.csv
+
+>>> [59/63] fw=combined scenario=distributed atk=5 rep=2
+    23:30:22
+HTTP OK | fw=combined scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0421,0.2505,120,59.0
+    -> 0.950,0.0421,0.2505,120,59.0
+    -> Salvato: /home/apirodd/results_extended/distributed_combined_a5_r2.csv
+
+>>> [60/63] fw=combined scenario=distributed atk=5 rep=3
+    23:32:17
+HTTP OK | fw=combined scenario=distributed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.650
+  ... N=40 succ=0.825
+  ... N=60 succ=0.883
+  ... N=80 succ=0.912
+  ... N=100 succ=0.930
+  ... N=120 succ=0.942
+RESULT: 0.942,0.0183,0.1087,120,59.0
+    -> 0.942,0.0183,0.1087,120,59.0
+    -> Salvato: /home/apirodd/results_extended/distributed_combined_a5_r3.csv
+
+>>> [61/63] fw=combined scenario=spoofed atk=5 rep=1
+    23:34:11
+HTTP OK | fw=combined scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0607,0.3523,120,62.6
+    -> 0.950,0.0607,0.3523,120,62.6
+    -> Salvato: /home/apirodd/results_extended/spoofed_combined_a5_r1.csv
+
+>>> [62/63] fw=combined scenario=spoofed atk=5 rep=2
+    23:36:09
+HTTP OK | fw=combined scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.700
+  ... N=40 succ=0.850
+  ... N=60 succ=0.900
+  ... N=80 succ=0.925
+  ... N=100 succ=0.940
+  ... N=120 succ=0.950
+RESULT: 0.950,0.0791,0.3797,120,62.8
+    -> 0.950,0.0791,0.3797,120,62.8
+    -> Salvato: /home/apirodd/results_extended/spoofed_combined_a5_r2.csv
+
+>>> [63/63] fw=combined scenario=spoofed atk=5 rep=3
+    23:38:08
+HTTP OK | fw=combined scenario=spoofed n_atk=5 rate=50000 N=120
+  ... N=20 succ=0.800
+  ... N=40 succ=0.900
+  ... N=60 succ=0.933
+  ... N=80 succ=0.950
+  ... N=100 succ=0.960
+  ... N=120 succ=0.967
+RESULT: 0.967,0.1386,0.5458,120,62.9
+    -> 0.967,0.1386,0.5458,120,62.9
+    -> Salvato: /home/apirodd/results_extended/spoofed_combined_a5_r3.csv
+
+================================================================
+ COMPLETATO
+================================================================
+ Run eseguiti  : 63 / 63
+ Run falliti   : 0
+ Tempo elapsed : 112 minuti
+
+ File CSV salvati: 63 / 63
+
+ Sommario risultati:
+ Config         Scenario       Succ   Lat(s)     CPU%
+ -------------------------------------------------------
+ none           single        1,000   0,0000     64,0
+ none           distributed   0,000   0,0000     96,3
+ none           spoofed       0,000   0,0000     57,7
+ syn-cookies    single        1,000   0,0000     65,0
+ syn-cookies    distributed   0,000   0,0000     96,7
+ syn-cookies    spoofed       0,000   0,0000     57,7
+ iptables-hl    single        1,000   0,0000     44,0
+ iptables-hl    distributed   0,000   0,0000     60,0
+ iptables-hl    spoofed       0,000   0,0000     57,7
+ iptables       single        1,000   0,0000     69,7
+ iptables       distributed   0,000   0,0000     95,0
+ iptables       spoofed       0,000   0,0000     59,0
+ nftables       single        1,000   0,0000     70,3
+ nftables       distributed   0,000   0,0000     93,7
+ nftables       spoofed       0,000   0,0000     62,0
+ xdp            single        1,000   0,0000     43,3
+ xdp            distributed   0,000   0,0000     58,3
+ xdp            spoofed       0,000   0,0000     61,3
+ combined       single        1,000   0,0000     43,0
+ combined       distributed   0,000   0,0000     59,0
+ combined       spoofed       0,000   0,0000     62,0
+
+ Prossimo passo: python3 analyze_extended.py
+================================================================
