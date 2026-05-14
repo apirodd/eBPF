@@ -17,25 +17,41 @@
 This repository provides the complete implementation, experimental infrastructure,
 raw results, and analysis scripts accompanying the paper.
 
-The system integrates two complementary in-kernel Linux mechanisms for SYN flood mitigation:
+We provide the first systematic, statistically rigorous comparison of **seven
+in-kernel SYN flood mitigation mechanisms** for Linux, evaluated across three
+attack scenarios (single-source, distributed, spoofed) on both a physical
+testbed and a reproducible Mininet-based emulated environment
+(63 independent runs, N = 120 measurements per run).
 
-- **XDP (eXpress Data Path)**: stateless per-IP rate limiting at the earliest
-  stage of packet processing, before the kernel networking stack.
-- **SYNPROXY**: stateful TCP handshake validation using SYN cookies, preventing
-  illegitimate connections from consuming server resources.
+The seven mechanisms evaluated are:
 
-The rate limiting threshold τ (SYN packets per IP per 2-second window) is
+| ID | Mechanism | Type |
+|---|---|---|
+| `none` | No Firewall (baseline) | — |
+| `syn-cookies` | Kernel SYN Cookies | Stateless kernel |
+| `iptables-hl` | iptables hashlimit | Stateless rate limiting |
+| `iptables` | iptables + SYNPROXY | Stateful validation |
+| `nftables` | nftables + SYNPROXY | Stateful validation |
+| `xdp` | XDP-only | Stateless eBPF |
+| `combined` | XDP + SYNPROXY | Layered (proposed) |
+
+The XDP rate limiting threshold τ (SYN packets per IP per 2-second window) is
 **runtime-configurable** via a BPF ARRAY map (`config_map`), enabling threshold
 adjustment without recompiling or reloading the XDP program.
 
 ### Key Findings
 
-| Scenario | Best Config | Metric |
-|---|---|---|
-| Single-source | XDP-only | CPU 43.8% (−35% vs iptables+SYNPROXY) |
-| Distributed | XDP+SYNPROXY | Latency 0.038 s (6.6× better than XDP-only) |
-| Spoofed | iptables+SYNPROXY | Latency 0.049 s (latency inversion vs XDP-only) |
-| Spoofed (physical) | XDP+SYNPROXY | Success rate 98.6% |
+| Scenario | Best Success Rate | Best Latency | Best CPU |
+|---|---|---|---|
+| Single-source | All equal (1.000) | XDP-only (0.016 s) | XDP+SYNPROXY (43.7%) |
+| Distributed | XDP-only (0.966) | XDP+SYNPROXY (0.040 s) | XDP-only (58.7%) |
+| Spoofed | SYN Cookies (0.986) | iptables+SYNPROXY (0.058 s) | iptables hashlimit (58.0%) |
+| Spoofed (physical) | XDP+SYNPROXY (98.6%) | — | — |
+
+**Three previously unreported behaviors:**
+1. Kernel SYN Cookies achieves the highest success rate under spoofed attacks (0.986) without any firewall overhead.
+2. iptables+SYNPROXY achieves *lower* latency than XDP-only under spoofed attacks (0.058 s vs. 0.173 s) — a latency inversion explained by connection-level validation.
+3. iptables hashlimit matches XDP-only CPU efficiency under distributed attacks (60.1% vs. 58.7%), positioning it as a viable alternative where eBPF is unavailable.
 
 **Optimal threshold**: τ = 200 SYN/IP per 2 s minimizes latency for XDP+SYNPROXY
 under spoofed attacks (0.068 s), confirmed across 3 independent runs with N = 120
@@ -47,13 +63,35 @@ measurements each.
 
 ```
 ebpf-syn-flood-firewall/
-├── src/                    # XDP/eBPF source code
-├── scripts/                # Setup and utility scripts
-├── experiments/            # Mininet topology and experiment runners
-├── results/                # Raw CSV data (physical + emulated testbeds)
-├── analysis/               # Statistical analysis and plotting scripts
-├── figures/                # Paper figures (PDF + PNG)
-└── paper/                  # LaTeX source
+├── src/                             # XDP/eBPF source code
+│   ├── xdp_firewall.c               # Fixed threshold version (τ = 200)
+│   ├── xdp_firewall_adaptive.c      # Runtime-configurable threshold version
+│   └── Makefile
+├── scripts/                         # Setup and utility scripts
+│   ├── setup_iptables_synproxy.sh
+│   ├── set_threshold.sh
+│   ├── reset_firewall.sh
+│   └── check_requirements.sh
+├── experiments/                     # Experiment runners
+│   ├── mininet/
+│   │   ├── run_single_experiment.py # Single run (all 7 configurations)
+│   │   └── run_all_extended.sh      # Full matrix: 63 runs (~112 min)
+│   └── threshold/
+│       ├── run_threshold_experiment.py
+│       └── run_threshold_all.sh     # Threshold sensitivity: 36 runs
+├── results/                         # Raw CSV data
+│   ├── physical/                    # Physical testbed (3 configurations)
+│   ├── emulated/                    # Mininet emulated (63 CSV files)
+│   └── threshold/                   # Threshold sensitivity (36 CSV files)
+├── analysis/                        # Statistical analysis and plotting
+│   ├── analyze_extended.py          # Stats + LaTeX tables (7 configurations)
+│   ├── analyze_threshold.py         # Threshold sensitivity analysis
+│   ├── statistical_analysis.py      # 95% CI and Cohen's d
+│   └── regen_fig_latency.py         # Regenerate individual figures
+├── figures/                         # Paper figures (PDF + PNG)
+└── paper/                           # LaTeX source
+    ├── paper_final_v2.tex
+    └── references.bib
 ```
 
 ---
@@ -69,6 +107,7 @@ ebpf-syn-flood-firewall/
 | bpftool | ≥ 7.7 |
 | libbpf | ≥ 1.7 |
 | clang/llvm | ≥ 14 |
+| nftables | ≥ 1.0 (tested on 1.0.9) |
 
 ### Packages
 
@@ -78,17 +117,17 @@ sudo apt install -y \
   linux-headers-$(uname -r) \
   linux-tools-$(uname -r) linux-tools-common \
   bpfcc-tools libbpf-dev \
-  iproute2 iptables \
-  hping3 python3 python3-pip
+  iproute2 iptables nftables \
+  hping3 python3 python3-pip \
+  mininet openvswitch-switch
 
-pip3 install mininet matplotlib scipy numpy --break-system-packages
+pip3 install matplotlib scipy numpy --break-system-packages
 ```
 
-### Verify kernel support
+### Verify dependencies
 
 ```bash
-grep -E "CONFIG_XDP|CONFIG_BPF_SYSCALL" /boot/config-$(uname -r)
-sudo bpftool version
+bash scripts/check_requirements.sh
 ```
 
 ---
@@ -100,45 +139,58 @@ sudo bpftool version
 ```bash
 cd src/
 
-# Fixed threshold version (τ = 200, default)
-clang -O2 -g -target bpf \
-  -I/usr/include/$(uname -m)-linux-gnu \
-  -c xdp_firewall.c -o xdp_firewall.o
+# Runtime-configurable threshold version (recommended)
+make adaptive
 
-# Runtime-configurable threshold version
+# Fixed threshold version (τ = 200)
+make fixed
+```
+
+Or manually:
+
+```bash
 clang -O2 -g -target bpf \
   -I/usr/include/$(uname -m)-linux-gnu \
   -c xdp_firewall_adaptive.c -o xdp_firewall_adaptive.o
 ```
 
-### 2. Check dependencies
+### 2. Deploy XDP-only
 
 ```bash
-bash scripts/check_requirements.sh
-```
-
-### 3. Deploy XDP-only
-
-```bash
-# Load XDP on interface eth0 (xdpgeneric for virtual interfaces)
-sudo ip link set dev eth0 xdpgeneric obj src/xdp_firewall.o sec xdp
-
-# Verify
-ip link show eth0 | grep xdp
-```
-
-### 4. Deploy XDP + SYNPROXY (combined)
-
-```bash
-# Load XDP with runtime-configurable threshold
 sudo ip link set dev eth0 xdpgeneric \
   obj src/xdp_firewall_adaptive.o sec xdp
 
-# Configure SYNPROXY
+ip link show eth0 | grep xdp
+```
+
+### 3. Deploy XDP + SYNPROXY (combined, recommended)
+
+```bash
+# Load XDP
+sudo ip link set dev eth0 xdpgeneric \
+  obj src/xdp_firewall_adaptive.o sec xdp
+
+# Configure iptables SYNPROXY
 sudo bash scripts/setup_iptables_synproxy.sh
 
 # Set threshold at runtime (no reload required)
 sudo bash scripts/set_threshold.sh 200
+```
+
+### 4. Deploy other mechanisms
+
+```bash
+# SYN Cookies only (kernel tuning, no firewall rules)
+sudo sysctl -w net.ipv4.tcp_syncookies=1
+sudo sysctl -w net.ipv4.tcp_max_syn_backlog=32768
+sudo sysctl -w net.core.somaxconn=32768
+sudo sysctl -w net.ipv4.tcp_synack_retries=1
+
+# iptables hashlimit (rate limiting without handshake validation)
+sudo iptables -A INPUT -p tcp --syn \
+  -m hashlimit --hashlimit-name syn_limit \
+  --hashlimit-above 100/second --hashlimit-burst 200 \
+  --hashlimit-mode srcip --hashlimit-srcmask 32 -j DROP
 ```
 
 ### 5. Reset
@@ -151,18 +203,19 @@ sudo bash scripts/reset_firewall.sh
 
 ## Runtime Threshold Configuration
 
-The adaptive version exposes the rate limiting threshold via a pinned BPF map:
+The adaptive XDP program exposes the rate limiting threshold via a pinned
+BPF map, allowing runtime updates without reloading:
 
 ```bash
-# Set threshold to 100 SYN/IP per 2-second window
-sudo bash scripts/set_threshold.sh 100
+# Set threshold (SYN/IP per 2-second window)
+sudo bash scripts/set_threshold.sh 200
 
-# Verify current threshold
+# Verify
 sudo bpftool map dump pinned /sys/fs/bpf/xdp_thresh/config_map
 ```
 
 Threshold values evaluated in the paper: τ ∈ {50, 100, 200, 500}.  
-**Recommended default**: τ = 200 for XDP+SYNPROXY under mixed traffic.
+**Recommended default**: τ = 200 for XDP+SYNPROXY under mixed/unknown traffic.
 
 ---
 
@@ -170,49 +223,57 @@ Threshold values evaluated in the paper: τ ∈ {50, 100, 200, 500}.
 
 ### Physical testbed
 
-The physical testbed uses two machines connected via a switch.
-See Table I in the paper for hardware specifications.
-Configure the firewall on the victim machine using the scripts above,
-and generate traffic from the attacker using hping3:
+Configure the firewall on the victim machine using the scripts above.
+Generate attack traffic from the attacker:
 
 ```bash
-# Single-source attack
+# Single-source
 hping3 -S -p 80 --faster -c 100000 <victim-ip>
 
-# Spoofed attack
+# Distributed (run on multiple attackers simultaneously)
+hping3 -S -p 80 --faster -c 50000 <victim-ip>
+
+# Spoofed
 hping3 -S -p 80 --rand-source --faster -c 100000 <victim-ip>
 ```
 
 ### Emulated testbed (Mininet)
 
-All experiments use the subnet `172.16.50.0/24` for the server/client
-and `172.16.51.0/24` for attackers to avoid conflicts with local networks.
+All experiments use `172.16.50.0/24` for server/client and
+`172.16.51.0/24` for attackers to avoid routing conflicts with
+the host network.
 
 ```bash
-# Single run: no firewall, single-source, 1 attacker, 50 kpps, 60 s
+# Single test run: XDP-only, single-source, 1 attacker, 50 kpps, 60 s
 sudo mn -c 2>/dev/null
 sudo python3 experiments/mininet/run_single_experiment.py \
-  none single 1 50000 60
-
-# View result
+  xdp single 1 50000 60
 cat last_result.txt
 ```
 
-#### Full experimental matrix (36 runs, ~90 min)
+Supported `fw` values: `none`, `syn-cookies`, `iptables-hl`,
+`iptables`, `nftables`, `xdp`, `combined`.
+
+#### Full experimental matrix (63 runs, ~112 min)
 
 ```bash
 sudo mn -c 2>/dev/null
-bash experiments/mininet/run_all.sh 2>&1 | tee run_all.log
+bash experiments/mininet/run_all_extended.sh 2>&1 | \
+  tee run_extended.log
 ```
+
+The script automatically skips runs with existing valid results,
+allowing safe restart after interruption.
 
 #### Threshold sensitivity analysis (36 runs, ~90 min)
 
 ```bash
 sudo mn -c 2>/dev/null
-bash experiments/threshold/run_threshold_all.sh 2>&1 | tee run_threshold.log
+bash experiments/threshold/run_threshold_all.sh 2>&1 | \
+  tee run_threshold.log
 ```
 
-**Parameter summary:**
+**Experimental parameters:**
 
 | Parameter | Value |
 |---|---|
@@ -220,66 +281,63 @@ bash experiments/threshold/run_threshold_all.sh 2>&1 | tee run_threshold.log
 | Run duration | 60 s |
 | HTTP sampling | 1 request / 500 ms → N = 120 per run |
 | Repetitions | 3 independent runs per configuration |
-| Configurations | none, xdp, iptables, combined |
-| Scenarios | single-source, distributed, spoofed |
-| Attackers | 1 (single), 5 (distributed/spoofed) |
+| Configurations (emulated) | 7 |
+| Configurations (physical) | 3 |
+| Scenarios | single-source (1 atk), distributed (5 atk), spoofed (5 atk) |
+| Total emulated runs | 63 (7 × 3 × 3) |
+| Total threshold runs | 36 (4τ × 3 configs × 3 reps) |
 
 ---
 
 ## Analysis and Figures
 
-After collecting results, run the analysis scripts:
-
 ```bash
 cd analysis/
 
-# Compute mean ± std and generate LaTeX tables
-python3 analyze_results.py
+# Full statistical analysis: mean ± std, CI 95%, LaTeX tables, figures
+python3 analyze_extended.py
 
 # Threshold sensitivity analysis
 python3 analyze_threshold.py
 
-# 95% CI and Cohen's d effect size
+# Cohen's d effect size
 python3 statistical_analysis.py
 
-# Generate paper figures with error bars
-python3 plot_results_final.py
+# Regenerate individual figures with custom layout
+python3 regen_fig_latency.py
 ```
 
-Output figures are saved in `figures/` as both PDF (for the paper) and PNG.
+Output figures are saved as both PDF (for the paper) and PNG in `figures/`.
 
 ---
 
 ## Raw Results
 
-The `results/` directory contains all raw CSV files from the experiments
-reported in the paper.
-
-### Format — emulated testbed
+### CSV format — emulated testbed
 
 ```
 fw, scenario, n_attackers, rep, success, avg_lat_s, std_lat_s, n_req, cpu_pct
 ```
 
-### Format — threshold analysis
+### CSV format — threshold analysis
 
 ```
 fw, scenario, n_attackers, threshold, rep, success, avg_lat_s, std_lat_s, n_req, cpu_pct
 ```
 
-### Summary statistics
+### Summary
 
 | Testbed | Configurations | Scenarios | Runs | N/run | Total measurements |
 |---|---|---|---|---|---|
 | Physical | 3 | 3 | 1 | — | — |
-| Emulated | 4 | 3 | 3 | 120 | 4,320 |
-| Threshold | 4×4 | 2 | 3 | 120 | 5,760 |
+| Emulated | 7 | 3 | 3 | 120 | 7,560 |
+| Threshold | 2 configs × 4τ | 2 | 3 | 120 | 5,760 |
 
 ---
 
 ## Operational Configuration
 
-Kernel parameters required for correct SYNPROXY behavior:
+Kernel parameters required on the protected server:
 
 ```bash
 sudo sysctl -w net.ipv4.tcp_syncookies=1
